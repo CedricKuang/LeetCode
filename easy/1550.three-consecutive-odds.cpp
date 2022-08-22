@@ -1,0 +1,23 @@
+/*
+ * @lc app=leetcode id=1550 lang=cpp
+ *
+ * [1550] Three Consecutive Odds
+ */
+
+// @lc code=start
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool threeConsecutiveOdds(vector<int>& arr) {
+        for (int i = 1; i < arr.size() - 1; i++)
+        {
+            if (arr[i] % 2 == 1 && arr[i - 1] % 2 == 1 && arr[i + 1] % 2 == 1)
+                return true;
+        }
+        return false;
+    }
+};
+// @lc code=end
+
