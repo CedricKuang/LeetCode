@@ -60,11 +60,11 @@ class rate_limiter2 {
 rate_limiter2::rate_limiter2(int maxVisitPerInterval, chrono::nanoseconds intervalLength)
 {
     buckets = new TimePoint[maxVisitPerInterval]{};
-    for (int i = 0; i < maxVisitPerInterval; i++)
-    {
-        TimePoint default_time{};
-        buckets[i] = default_time;
-    }
+    // for (int i = 0; i < maxVisitPerInterval; i++)
+    // {
+    //     TimePoint default_time{};
+    //     buckets[i] = default_time;
+    // }
     this->maxVisitPerInterval = maxVisitPerInterval;
     this->intervalLength = intervalLength;
     index = 0;
@@ -81,6 +81,7 @@ bool rate_limiter2::send(TimePoint time)
     }
     else
     {
+        // chrono::duration<double> elapsed_time = time - buckets[index];
         if (chrono::duration_cast<chrono::nanoseconds>(time - buckets[index]) > intervalLength)
         {
             buckets[index] = time;
@@ -96,6 +97,14 @@ bool rate_limiter2::send(TimePoint time)
 
 int main()
 {
-
+    TimePoint* buckets = new TimePoint[10]{};
+    TimePoint default_time{};
+    if (default_time == buckets[0])
+        cout << "hello" << endl;
+    cout << chrono::duration_cast<chrono::nanoseconds>(default_time - buckets[0]).count() << endl;
+    array<atomic<TimePoint>, 10> bb = {};
+    array<atomic<int>, 10> aa = {0, 0, 0, 0};
+    cout << aa[0] << endl;
+    // cout << bb[0] << endl;
     return 0;
 }
