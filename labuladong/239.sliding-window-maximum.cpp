@@ -5,33 +5,28 @@
  */
 
 // @lc code=start
-#include <vector>
 #include <queue>
-#include <unordered_map>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        priority_queue<pair<int,int>> window;
         int left = 0, right = 0;
-        priority_queue<int> pq;
-        unordered_map<int, int> window;
-                                                                                                                                                                                                     
         vector<int> ans;
         while (right < nums.size())
         {
-            window[nums[right]]++;
-            pq.push(nums[right]);
+            window.push({nums[right], right});
             right++;
 
             if (right - left == k)
             {
-                while (window[pq.top()] == 0)
+                while (window.top().second < left)
                 {
-                    pq.pop();
+                    window.pop();
                 }
-                ans.push_back(pq.top());
-                window[nums[left]]--;
+                ans.push_back(window.top().first);
                 left++;
             }
         }
